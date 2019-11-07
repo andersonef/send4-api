@@ -13,7 +13,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        ApiRequestValidationException::class
     ];
 
     /**
@@ -46,6 +46,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ApiRequestValidationException) {
+            throw $exception;
+        }
         return parent::render($request, $exception);
     }
 }

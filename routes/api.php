@@ -17,5 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/contatos', 'ContatosController');
-Route::resource('/mensagens', 'MensagensController');
+Route::resource('/contatos', 'ContatosController', ['only' => ['store', 'index', 'update', 'destroy']]);
+Route::resource('/mensagens', 'MensagensController', ['only' => ['store', 'index', 'update', 'destroy']]);
