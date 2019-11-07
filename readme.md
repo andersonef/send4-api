@@ -23,11 +23,23 @@ Para que o projeto rode em sua máquina é necessário ter instalado os seguinte
 
 ```cd send4-api/laradock```
 
-3. Levante os containeres
+3. Clone o Laradock para dentro do projeto
+
+```git clone https://github.com/Laradock/laradock.git```
+
+4. Acesse a pasta do laradock
+
+```cd laradock```
+
+5. Renomeie o env-example para .env
+
+```cp env-example .env```
+
+6. Levante os containeres
 
 ```docker-compose up -d nginx mariadb adminer```
 
-4. Acesse a url: **http://localhost**
+7. Acesse a url: **http://localhost**
 
 ## Usando Insomnia
 Com o Insomnia é possível testar todas as chamadas, bem como ler a documentação de cada uma.
