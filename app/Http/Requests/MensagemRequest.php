@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\ApiRequestValidationException;
+use Illuminate\Contracts\Validation\Validator;
 
 class MensagemRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class MensagemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,22 @@ class MensagemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'contato_id'                => ['required', 'exists:contatos,id'],
+            'descricao_mensagem'        => ['required']
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'contato_id.required'           => 'É obrigatório informar o contato da mensagem.',
+            'contato_id.exists'             => 'O contato informado não foi encontrado em nosso banco de dados.',
+            'descricao_mensagem.required'   => 'É obrigatório informar a descrição da mensagem.'
+        ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new ApiRequestValidationException($validator->errors());
     }
 }

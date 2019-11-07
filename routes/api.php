@@ -18,4 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('/contatos', 'ContatosController', ['only' => ['store', 'index', 'update', 'destroy']]);
-Route::resource('/mensagens', 'MensagensController', ['only' => ['store', 'index', 'update', 'destroy']]);
+Route::resource('/mensagens', 'MensagensController', ['only' => ['store', 'show', 'update', 'destroy']]);

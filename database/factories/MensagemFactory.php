@@ -8,6 +8,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Mensagem::class, function (Faker $faker) {
     $contato = Contato::query()->inRandomOrder()->first();
+    if (!$contato) {
+        factory(Contato::class, 50)->create();
+        $contato = Contato::query()->inRandomOrder()->first();
+    }
     return [
         'contato_id'            => $contato->id,
         'descricao_mensagem'    => implode('', $faker->paragraphs(3))

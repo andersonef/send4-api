@@ -6,29 +6,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Entities\Contato;
 use Tests\TestCase;
+use Tests\ListRequestParamsTestTrait;
 
 class ListTest extends TestCase
 {
     const URI = '/api/contatos';
 
-    /**
-     * Testando exibição de todos os resultados. O sistema deve limitar a 50 sempre.
-     *
-     * @return void
-     */
-    public function testLimiteExibicao()
-    {
-        factory(Contato::class, 60)->create();
-        $response = $this->get(self::URI);
-        $response->assertStatus(200);
-        $response->assertJson(['status' => 'success']);
-        $response->assertJsoncount(50, 'data');
-
-        $response = $this->get(self::URI . '?limit=10');
-        $response->assertStatus(200);
-        $response->assertJson(['status' => 'success']);
-        $response->assertJsoncount(10, 'data');
-    }
+    use RefreshDatabase, ListRequestParamsTestTrait;    
 
     public function testBuscaPorNome()
     {
